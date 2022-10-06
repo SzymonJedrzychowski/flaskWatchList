@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+    <title>Watch List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <meta charset="utf-8">
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</head>
+
+<body>
+    <header class="websiteTitle">
+        <h1>Watch list</h1>
+    </header>
+    <section class="all">
+        {%for i in data%}
+
+        <section class="listing">
+            <div class="basic" onclick=showAdvanced(this)>
+                <span class="title">{{i["title"]}}</span>
+                <span class="status" {% if i["status"]=="watching" %} style="background-color:greenyellow;" {% elif
+                    i["status"]=="waiting" %} style="background-color: yellow;" {% elif i["status"]=="finished" %}
+                    style="background-color:coral;" {% elif i["status"]=="rewatch" %} style="background-color: darkseagreen;" {% else %} style="background-color: crimson;" {% endif
+                    %}>{{i["status"]}}</span>
+                <span class="rating">{{i["rating"]}}</span>
+            </div>
+            <div class="advanced">
+                <a class="wikiLink adv" {% if i["wiki"] !="" %} href={{i["wiki"]}}>
+                    wiki
+                    {% else %}
+                    >
+                    {% endif %}
+                </a>
+                <a class="trailer adv" {% if i["trailer"] !="" %} href={{i["trailer"]}}>
+                    trailer
+                    {% else %}
+                    >
+                    {% endif %}
+                </a>
+                <button type="button" class="edit adv">EDIT</button>
+                <button type="button" class="remove adv">REMOVE</button>
+                <span class="description adv">{{i["description"]}}</span>
+            </div>
+        </section>
+        {%endfor%}
+    </section>
+</body>
+
+</html>
