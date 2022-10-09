@@ -1,0 +1,25 @@
+{% extends "accountBase.html" %}
+{% block form %}
+<form action="" method="post">
+    <h1>Login form</h1>
+    {% if message %}
+    <div class="alert">
+        <p>{{ message }}</p>
+    </div>    
+    {% endif %}
+    <div class="inp">
+        <label for="username">Username</label>
+        <input name="username" id="inputUsername" placeholder="Enter username">
+    </div>
+    <div class="inp">
+        <label for="InputPassword">Password</label>
+        <input type="password" name="password" id="InputPassword" placeholder="Password">
+    </div>
+
+    <div class="action">
+        <a class="act" href="/">Go back</a>
+        <button class="act" type="submit">Submit</button>
+    </div>
+
+</form>
+{% endblock %}

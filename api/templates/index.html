@@ -5,24 +5,41 @@
     <title>Watch List</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </head>
 
 <body>
     <header class="websiteTitle">
         <h1>Watch list</h1>
+        {% if name=="" %}
+        <div class="header">
+            <h2>This is demo version.</h2>
+            <div class="logins">
+                <a href='login'>Log in</a> or <a href='createAccount'>Create account</a> to get full functionality.
+            </div>
+        </div>
+        {% else %}
+        <div class="header">
+            <h2>Welcome, {{ name }}</h2>
+            <div class="logins">
+                <a href='logout'>Log out</a>
+            </div>
+        </div>
+        {% endif %}
     </header>
-    <section class="all">
+    <section class="list">
         {%for i in data%}
 
         <section class="listing">
             <div class="basic" onclick=showAdvanced(this)>
-                <span class="title">{{i["title"]}}</span>
-                <span class="status" {% if i["status"]=="watching" %} style="background-color:greenyellow;" {% elif
+                <span class="basicInfo title">{{i["title"]}}</span>
+                <span class="basicInfo" {% if i["status"]=="watching" %} style="background-color:greenyellow;" {% elif
                     i["status"]=="waiting" %} style="background-color: yellow;" {% elif i["status"]=="finished" %}
-                    style="background-color:coral;" {% elif i["status"]=="rewatch" %} style="background-color: darkseagreen;" {% else %} style="background-color: crimson;" {% endif
+                    style="background-color:coral;" {% elif i["status"]=="rewatch" %}
+                    style="background-color: darkseagreen;" {% else %} style="background-color: crimson;" {% endif
                     %}>{{i["status"]}}</span>
-                <span class="rating">{{i["rating"]}}</span>
+                <span class="basicInfo">{{i["rating"]}}</span>
             </div>
             <div class="advanced">
                 <a class="wikiLink adv" {% if i["wiki"] !="" %} href={{i["wiki"]}}>

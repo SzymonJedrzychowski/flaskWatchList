@@ -1,25 +1,33 @@
-body{
+body {
     width: 70%;
-    margin: auto;
-    align-items: center;
+    margin: 0 auto;
+    background-color: lightgray;
     text-align: center;
     display: flex;
     flex-direction: column;
 }
 
-.websiteTitle{
+.websiteTitle {
+    margin-top: 2em;
     width: 100%;
     border: 1px solid black;
+    border-radius: 25px 25px 0px 0px;
     background-color: coral;
 }
 
-.all{
+.logins {
+    padding: 1em;
+}
+
+.list {
     width: 100%;
     border: 1px solid black;
     background-color: bisque;
+    border-radius: 0px 0px 25px 25px;
+    margin-bottom: 2em;
 }
 
-.listing{
+.listing {
     text-align: left;
     background-color: aqua;
     display: flex;
@@ -28,79 +36,115 @@ body{
     margin: 0.5em 1em 0.5em 1em;
 }
 
-.basic{
+.basic {
     display: flex;
     flex-direction: row;
 }
 
-.title{
-    padding: 0.5em 0em 0.5em;
+.basicInfo {
+    padding: 0.5em 0em;
     border: 1px solid black;
+    text-align: center;
+    width: 25%;
+}
+
+.title {
     width: 50%;
-    text-align: center;
 }
 
-.status{
-    padding: 0.5em 0em 0.5em;
-    border: 1px solid black;
-    width: 25%;
-    text-align: center;
-}
-
-.rating{
-    padding: 0.5em 0em 0.5em;
-    border: 1px solid black;
-    width: 25%;
-    text-align: center;
-}
-
-.advanced{
+.advanced {
     display: none;
 }
 
-.showAdvanced{
+.showAdvanced {
     display: grid;
     grid-template-columns: 3fr 7fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
-    "wikiLink description"
-    "youtubeLink description"
-    "edit description"
-    "remove description";
+        "wikiLink description"
+        "youtubeLink description"
+        "edit description"
+        "remove description";
 }
 
-.adv{
+.adv {
+    padding: 0.5em;
     border: 1px solid black;
 }
 
-.wikiLink{
+.wikiLink {
     text-align: center;
     grid-area: wikiLink;
 }
 
-.youtubeLink{
+.youtubeLink {
     text-align: center;
     grid-area: youtubeLink;
 }
 
-.edit{
+.edit {
     grid-area: edit;
 }
 
-.remove{
+.remove {
     grid-area: remove;
 }
 
-.description{
+.description {
     padding: 1em;
     grid-area: description;
 }
 
-button{
+button {
     text-align: center;
     background-color: antiquewhite;
 }
 
-button:hover{
+button:hover {
     background-color: aliceblue;
+}
+
+@media screen and (min-width: 1000px) {
+    body {
+        min-width: 885px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    body {
+        width: 90%;
+        min-width: none;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    html{
+        min-width: 300px;
+    }
+    body{
+        width: 90%;
+        min-width: none;
+    }
+    .basic {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+        "title title"
+        "status rating";
+    }
+    .basicInfo{
+        width: inherit;
+    }
+    .title{
+        grid-area: title;
+    }
+    .showAdvanced{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 2em 1fr 2em;
+        grid-template-areas:
+        "wikiLink youtubeLink"
+        "description description"
+        "edit remove";
+    }
 }
