@@ -28,7 +28,6 @@ body {
 }
 
 .listing {
-    text-align: left;
     background-color: aqua;
     display: flex;
     flex-direction: column;
@@ -48,7 +47,31 @@ body {
     width: 25%;
 }
 
+.status option{
+    background-color: white;
+}
+
+input:disabled{
+    color: black;
+    opacity: 100%;
+}
+
+select:disabled{
+    color: black;
+    opacity: 100%;
+}
+
+.rating:disabled{
+    background-color: aqua;
+}
+
+.add{
+    padding: 0.5em;
+    border: 1px solid black;
+}
+
 .title {
+    grid-area: title;
     width: 50%;
 }
 
@@ -59,16 +82,29 @@ body {
 .showAdvanced {
     display: grid;
     grid-template-columns: 3fr 7fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas:
         "wikiLink description"
-        "youtubeLink description"
+        "trailer description"
         "edit description"
         "remove description";
 }
 
+.editAdvanced {
+    width: inherit;
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "wikiLinkInput description"
+        "trailerInput description"
+        "save description"
+        "cancel description";
+}
+
 .adv {
     padding: 0.5em;
+    text-align: center;
     border: 1px solid black;
 }
 
@@ -77,9 +113,19 @@ body {
     grid-area: wikiLink;
 }
 
-.youtubeLink {
+.wikiLinkInput{
+    grid-area: wikiLinkInput;
+    display: none;
+}
+
+.trailerInput{
+    grid-area: trailerInput;
+    display: none;
+}
+
+.trailer {
     text-align: center;
-    grid-area: youtubeLink;
+    grid-area: trailer;
 }
 
 .edit {
@@ -104,6 +150,29 @@ button:hover {
     background-color: aliceblue;
 }
 
+textarea{
+    resize: none;
+}
+
+textarea:disabled{
+    opacity: 100%;
+    color: black;
+}
+
+.save{
+    grid-area: save;
+    display: none;
+}
+
+.cancel{
+    grid-area: cancel;
+    display: none;
+}
+
+.hid{
+    display: none;
+}
+
 @media screen and (min-width: 1000px) {
     body {
         min-width: 885px;
@@ -118,9 +187,6 @@ button:hover {
 }
 
 @media screen and (max-width: 680px) {
-    html{
-        min-width: 300px;
-    }
     body{
         width: 90%;
         min-width: none;
@@ -136,15 +202,28 @@ button:hover {
     .basicInfo{
         width: inherit;
     }
-    .title{
-        grid-area: title;
-    }
     .showAdvanced{
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 2em 1fr 2em;
         grid-template-areas:
-        "wikiLink youtubeLink"
+        "wikiLink trailer"
         "description description"
         "edit remove";
+    }
+    .editAdvanced{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 2em 1fr 2em;
+        grid-template-areas:
+        "wikiLinkInput trailerInput"
+        "description description"
+        "save cancel";
+    }
+    .trailerInput {
+        padding: 0;
+        font-size: 0.8em;
+    }
+    .wikiLinkInput{
+        padding: 0;
+        font-size: 0.8em
     }
 }

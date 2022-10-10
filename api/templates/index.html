@@ -29,36 +29,57 @@
         {% endif %}
     </header>
     <section class="list">
+        <form class="listing" action="/modify" method="post">
+            <button class="add" type="button" onclick=addNew(this)>+</button>
+        </form>
         {%for i in data%}
 
-        <section class="listing">
+        <form class="listing" action="/modify" method="post">
             <div class="basic" onclick=showAdvanced(this)>
-                <span class="basicInfo title">{{i["title"]}}</span>
-                <span class="basicInfo" {% if i["status"]=="watching" %} style="background-color:greenyellow;" {% elif
-                    i["status"]=="waiting" %} style="background-color: yellow;" {% elif i["status"]=="finished" %}
-                    style="background-color:coral;" {% elif i["status"]=="rewatch" %}
-                    style="background-color: darkseagreen;" {% else %} style="background-color: crimson;" {% endif
-                    %}>{{i["status"]}}</span>
-                <span class="basicInfo">{{i["rating"]}}</span>
+                <input class="hid" name="hid" value={{i["_id"]}}>
+                <input disabled class="basicInfo title" value="{{i["title"]}}" name="title">
+                {% set colours = {"watching": "green;", "waiting": "yellow;", "rewatch": "blue;", "finished": "green;", "dropped": "red;", "paused": "purple;"} %}
+                <select class="basicInfo status" disabled onchange=changeColour(this) style="background-color:{{colours[i['status']]}}" name="status">
+                    <option value="watching" {% if i["status"] == "watching" %} class="statusValue" selected {% endif %}>watching</option>
+                    <option value="paused" {% if i["status"] == "paused" %} class="statusValue" selected {% endif %}>paused</option>
+                    <option value="waiting" {% if i["status"] == "waiting" %} class="statusValue" selected {% endif %}>waiting</option>
+                    <option value="rewatch" {% if i["status"] == "rewatch" %} class="statusValue" selected {% endif %}>rewatch</option>
+                    <option value="finished" {% if i["status"] == "finished" %} class="statusValue" selected {% endif %}>finished</option>
+                    <option value="dropped" {% if i["status"] == "dropped" %} class="statusValue" selected {% endif %}>dropped</option>
+                </select>
+                <select class="basicInfo rating" disabled name="rating">
+                    <option value="0"></option>
+                    {% for j in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] %}
+                        {% if i["rating"] == j %}
+                            <option value={{j}} selected>{{j}}</option>
+                        {% else %}
+                        <option value={{j}}>{{j}}</option>
+                        {% endif %}
+                    {% endfor %}
+                <select>
             </div>
             <div class="advanced">
-                <a class="wikiLink adv" {% if i["wiki"] !="" %} href={{i["wiki"]}}>
+                <a class="wikiLink adv" {% if i["wiki"] !="" %} href="{{i["wiki"]}}">
                     wiki
                     {% else %}
-                    >
+                    >wiki
                     {% endif %}
                 </a>
-                <a class="trailer adv" {% if i["trailer"] !="" %} href={{i["trailer"]}}>
+                <input class="wikiLinkInput adv" value="{{i["wiki"]}}" name="wikiLink">
+                <a class="trailer adv" {% if i["trailer"] !="" %} href="{{i["trailer"]}}">
                     trailer
                     {% else %}
-                    >
+                    >trailer
                     {% endif %}
                 </a>
-                <button type="button" class="edit adv">EDIT</button>
-                <button type="button" class="remove adv">REMOVE</button>
-                <span class="description adv">{{i["description"]}}</span>
+                <input class="trailerInput adv" value="{{i["trailer"]}}" name="trailer">
+                <textarea name="description" disabled class="description adv">{{i["description"]}}</textarea>
+                <button type="button" class="edit adv" onclick=toEdit(this)>EDIT</button>
+                <button type="submit" name="act" value="save" class="save adv">SAVE</button>
+                <button type="submit" name="act" value="remove" class="remove adv">REMOVE</button>
+                <button type="button" class="cancel adv" onclick=cancel(this)>CANCEL</button>
             </div>
-        </section>
+        </form>
         {%endfor%}
     </section>
 </body>

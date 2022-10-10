@@ -3,6 +3,7 @@ import json
 import os
 import pymongo
 import bcrypt
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
@@ -13,9 +14,9 @@ db = client["myPersonalList"]
 @app.route("/")
 def index():
     if "name" in session:
-        return render_template("index.html", name=session["name"], data=db["watchList"].find({"account_name": session["name"]}))
+        return render_template("index.html", name=session["name"], data=db["watchList"].find({"account_name": session["name"]}).sort("status", -1))
     else:
-        return render_template("index.html", name="", data=db["watchList"].find({"account_name": "demo"}))
+        return render_template("index.html", name="", data=db["watchList"].find({"account_name": "demo"}).sort("status", -1))
 
 
 @app.route("/createAccount", methods=['post', 'get'])
@@ -80,3 +81,41 @@ def logout():
         session.pop("name", None)
 
     return redirect("/")
+
+@app.route("/modify", methods=["POST", "GET"])
+def modify():
+    if request.method == "POST":
+        action = request.form.get("act")
+        hid = request.form.get("hid")
+        if action == "remove":
+            if hid == "":
+                return redirect("/")
+            db["watchList"].delete_one({"_id": ObjectId(hid)})
+            return redirect("/")
+        elif action == "save":
+            if session.get('name'):
+                name = session["name"]
+            else:
+                return redirect("/")
+            if hid == "":
+                toAdd = {
+                    "title": request.form.get("title"),
+                    "status": request.form.get("status"),
+                    "rating": request.form.get("rating"),
+                    "description": request.form.get("description"),
+                    "trailer": request.form.get("trailer"),
+                    "wiki": request.form.get("wikiLink"),
+                    "account_name": name
+                }
+                db["watchList"].insert_one(toAdd)
+                return redirect("/")
+            toMod = {"$set": {
+                "title": request.form.get("title"),
+                "status": request.form.get("status"),
+                "rating": request.form.get("rating"),
+                "description": request.form.get("description"),
+                "trailer": request.form.get("trailer"),
+                "wiki": request.form.get("wikiLink")
+            }}
+            db["watchList"].update_one({"_id": ObjectId(hid)}, toMod)
+            return redirect("/")
