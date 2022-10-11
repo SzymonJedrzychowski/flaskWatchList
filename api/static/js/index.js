@@ -1,9 +1,5 @@
-let allow=true;
 function showAdvanced(el) {
     let adv = el.parentElement.getElementsByClassName("advanced")[0];
-    if (!allow){
-        return
-    }
     if (adv.className == "advanced") {
         adv.className = 'advanced showAdvanced';
     } else {
@@ -26,7 +22,6 @@ function changeColour(el) {
 }
 
 function toEdit(el){
-    allow = false;
     parent = el.parentElement.parentElement;
     adv = el.parentElement
     d = parent.getElementsByClassName("basicInfo");
@@ -46,7 +41,6 @@ function toEdit(el){
 }
 
 function cancel(el){
-    allow = true;
     parent = el.parentElement.parentElement;
     adv = el.parentElement
     d = parent.getElementsByClassName("basicInfo");
@@ -68,17 +62,7 @@ function cancel(el){
 function addNew(el){
     parent2 = el.parentElement;
     newElement = parent2.parentElement.getElementsByClassName("listing")[1].cloneNode(true);
-    newElement.getElementsByClassName("advanced")[0].setAttribute("class", "advanced showAdvanced");
-    newElement.getElementsByClassName("hid")[0].value = "";
-    newElement.getElementsByClassName("title")[0].value = "";
-    newElement.getElementsByClassName("status")[0].style.backgroundColor="green";
-    newElement.getElementsByClassName("statusValue")[0].removeAttribute("selected");
-    newElement.getElementsByClassName("rating")[0].value = "";
-    newElement.getElementsByClassName("wikiLink")[0].removeAttribute("href");
-    newElement.getElementsByClassName("trailer")[0].removeAttribute("href");
-    newElement.getElementsByClassName("description")[0].value = "";
-    newElement.getElementsByClassName("edit")[0].innerHTML = "SAVE";
-    newElement.getElementsByClassName("cancel")[0].setAttribute("onclick", 'removeThis(this)');
+    newElement.removeAttribute("style");
     toEdit(newElement.getElementsByClassName("edit")[0]);
     parent2.parentElement.insertBefore(newElement, parent2.nextSibling);
     parent2.style.display = 'none';
