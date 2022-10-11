@@ -1,8 +1,15 @@
 function showAdvanced(el) {
     let adv = el.parentElement.getElementsByClassName("advanced")[0];
+    if(adv==undefined){
+        let adv2 = el.parentElement.getElementsByClassName("editAdvanced")[0];
+        if (adv2!=undefined){
+            return
+        }
+    }
+
     if (adv.className == "advanced") {
         adv.className = 'advanced showAdvanced';
-    } else {
+    }else{
         adv.className = 'advanced';
     }
 }

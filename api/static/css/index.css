@@ -139,6 +139,7 @@ select:disabled{
 }
 
 .description {
+    font-size: 1em;
     padding: 1em;
     grid-area: description;
 }
@@ -206,27 +207,11 @@ textarea:disabled{
         width: inherit;
     }
     .showAdvanced{
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 2em 1fr 2em;
-        grid-template-areas:
-        "wikiLink trailer"
-        "description description"
-        "edit remove";
+        display: flex;
+        flex-direction: column;
     }
     .editAdvanced{
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 2em 1fr 2em;
-        grid-template-areas:
-        "wikiLinkInput trailerInput"
-        "description description"
-        "save cancel";
-    }
-    .trailerInput {
-        padding: 0;
-        font-size: 0.8em;
-    }
-    .wikiLinkInput{
-        padding: 0;
-        font-size: 0.8em
+        display: flex;
+        flex-direction: column;
     }
 }

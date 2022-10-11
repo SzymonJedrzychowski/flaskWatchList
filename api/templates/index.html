@@ -69,7 +69,7 @@
         <form class="listing" action="/modify" method="post">
             <div class="basic" onclick=showAdvanced(this)>
                 <input class="hid" name="hid" value={{i["_id"]}}>
-                <input disabled class="basicInfo title" value="{{i["title"]}}" name="title">
+                <input disabled class="basicInfo title" value='{{i["title"]}}' name="title">
                 {% set colours = {"watching": "green;", "waiting": "yellow;", "rewatch": "blue;", "finished": "green;",
                 "dropped": "red;", "paused": "purple;"} %}
                 <select class="basicInfo status" disabled onchange=changeColour(this)
@@ -99,20 +99,20 @@
                     <select>
             </div>
             <div class="advanced">
-                <a class="wikiLink adv" {% if i["wiki"] !="" %} href="{{i[" wiki"]}}">
+                <a class="wikiLink adv" {% if i["wiki"] !="" %} href='{{i["wiki"]}}'>
                     wiki
                     {% else %}
                     >wiki
                     {% endif %}
                 </a>
-                <input class="wikiLinkInput adv" value="{{i[" wiki"]}}" name="wikiLink">
-                <a class="trailer adv" {% if i["trailer"] !="" %} href="{{i[" trailer"]}}">
+                <input class="wikiLinkInput adv" value='{{i["wiki"]}}' name="wikiLink">
+                <a class="trailer adv" {% if i["trailer"] !="" %} href='{{i["trailer"]}}'>
                     trailer
                     {% else %}
                     >trailer
                     {% endif %}
                 </a>
-                <input class="trailerInput adv" value="{{i[" trailer"]}}" name="trailer">
+                <input class="trailerInput adv" value='{{i["trailer"]}}' name="trailer">
                 <textarea name="description" disabled class="description adv">{{i["description"]}}</textarea>
                 <button type="button" class="edit adv" onclick=toEdit(this)>EDIT</button>
                 <button type="submit" name="act" value="save" class="save adv">SAVE</button>

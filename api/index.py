@@ -88,7 +88,7 @@ def modify():
         action = request.form.get("act")
         hid = request.form.get("hid")
         if action == "remove":
-            if hid == "":
+            if hid == "" or not session.get('name'):
                 return redirect("/")
             db["watchList"].delete_one({"_id": ObjectId(hid)})
             return redirect("/")
