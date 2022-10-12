@@ -99,14 +99,14 @@
                     <select>
             </div>
             <div class="advanced">
-                <a class="wikiLink adv" {% if i["wiki"] !="" %} href='{{i["wiki"]}}'>
+                <a class="wikiLink adv" target="_blank" {% if i["wiki"] !="" %} href='{{i["wiki"]}}'>
                     wiki
                     {% else %}
                     >wiki
                     {% endif %}
                 </a>
                 <input class="wikiLinkInput adv" value='{{i["wiki"]}}' name="wikiLink">
-                <a class="trailer adv" {% if i["trailer"] !="" %} href='{{i["trailer"]}}'>
+                <a class="trailer adv" target="_blank" {% if i["trailer"] !="" %} href='{{i["trailer"]}}'>
                     trailer
                     {% else %}
                     >trailer

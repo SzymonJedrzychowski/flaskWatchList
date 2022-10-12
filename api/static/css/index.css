@@ -114,12 +114,14 @@ select:disabled{
 }
 
 .wikiLinkInput{
+    outline: none;
     grid-area: wikiLinkInput;
     font-size: 1em;
     display: none;
 }
 
 .trailerInput{
+    outline: none;
     grid-area: trailerInput;
     font-size: 1em;
     display: none;
@@ -139,6 +141,7 @@ select:disabled{
 }
 
 .description {
+    outline: none;
     font-size: 1em;
     padding: 1em;
     grid-area: description;

@@ -4,6 +4,7 @@ import os
 import pymongo
 import bcrypt
 from bson.objectid import ObjectId
+from pymongo.collation import Collation
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
@@ -14,9 +15,9 @@ db = client["myPersonalList"]
 @app.route("/")
 def index():
     if "name" in session:
-        return render_template("index.html", name=session["name"], data=db["watchList"].find({"account_name": session["name"]}).sort("status", -1))
+        return render_template("index.html", name=session["name"], data=db["watchList"].find({"account_name": session["name"]}).sort([("status", -1), ("rating", -1)]).collation(Collation(locale='en_US', numericOrdering=True)))
     else:
-        return render_template("index.html", name="", data=db["watchList"].find({"account_name": "demo"}).sort("status", -1))
+        return render_template("index.html", name="", data=db["watchList"].find({"account_name": "demo"}).sort([("status", -1), ("rating", -1)])).collation(Collation(locale='en_US', numericOrdering=True))
 
 
 @app.route("/createAccount", methods=['post', 'get'])
