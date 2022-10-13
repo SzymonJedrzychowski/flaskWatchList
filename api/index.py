@@ -17,7 +17,7 @@ def index():
     if "name" in session:
         return render_template("index.html", name=session["name"], data=db["watchList"].find({"account_name": session["name"]}).sort([("status", -1), ("rating", -1)]).collation(Collation(locale='en_US', numericOrdering=True)))
     else:
-        return render_template("index.html", name="", data=db["watchList"].find({"account_name": "demo"}).sort([("status", -1), ("rating", -1)])).collation(Collation(locale='en_US', numericOrdering=True))
+        return render_template("index.html", name="", data=db["watchList"].find({"account_name": "demo"}).sort([("status", -1), ("rating", -1)]).collation(Collation(locale='en_US', numericOrdering=True)))
 
 
 @app.route("/createAccount", methods=['post', 'get'])
