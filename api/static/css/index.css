@@ -15,11 +15,11 @@ body {
     background-color: coral;
 }
 
-.logins {
+.headerLogins {
     padding: 1em;
 }
 
-.list {
+.watchList {
     width: 100%;
     border: 1px solid black;
     background-color: bisque;
@@ -27,7 +27,7 @@ body {
     margin-bottom: 2em;
 }
 
-.listing {
+.watchListItem {
     background-color: aqua;
     display: flex;
     flex-direction: column;
@@ -35,51 +35,55 @@ body {
     margin: 0.5em 1em 0.5em 1em;
 }
 
-.basic {
+.addNewItem {
+    padding: 0.5em;
+    border: 1px solid black;
+}
+
+.basicData {
     display: flex;
     flex-direction: row;
 }
 
-.basicInfo {
+.hiddenID {
+    display: none;
+}
+
+.basicInformation {
     padding: 0.5em 0em;
     border: 1px solid black;
     text-align: center;
     width: 25%;
 }
 
-.status option{
-    background-color: white;
-}
-
-input:disabled{
-    color: black;
-    opacity: 100%;
-}
-
-select:disabled{
-    color: black;
-    opacity: 100%;
-}
-
-.rating:disabled{
-    background-color: aqua;
-}
-
-.add{
-    padding: 0.5em;
-    border: 1px solid black;
-}
-
-.title {
+.itemTittle {
     grid-area: title;
     width: 50%;
 }
 
-.advanced {
+.itemStatus option {
+    background-color: white;
+}
+
+.itemRating:disabled {
+    background-color: aqua;
+}
+
+input:disabled {
+    color: black;
+    opacity: 100%;
+}
+
+select:disabled {
+    color: black;
+    opacity: 100%;
+}
+
+.detailedData {
     display: none;
 }
 
-.showAdvanced {
+.showDetailedData {
     display: grid;
     grid-template-columns: 3fr 7fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -90,7 +94,7 @@ select:disabled{
         "remove description";
 }
 
-.editAdvanced {
+.editDetailedData {
     width: inherit;
     display: grid;
     grid-template-columns: 3fr 7fr;
@@ -108,43 +112,55 @@ select:disabled{
     border: 1px solid black;
 }
 
-.wikiLink {
+.editable{
+    outline: none;
+}
+
+.itemWikiLink {
     text-align: center;
     grid-area: wikiLink;
 }
 
-.wikiLinkInput{
-    outline: none;
+.itemWikiLinkInput {
     grid-area: wikiLinkInput;
     font-size: 1em;
     display: none;
 }
 
-.trailerInput{
-    outline: none;
+.itemTrailerInput {
     grid-area: trailerInput;
     font-size: 1em;
     display: none;
 }
 
-.trailer {
-    text-align: center;
-    grid-area: trailer;
-}
-
-.edit {
-    grid-area: edit;
-}
-
-.remove {
-    grid-area: remove;
-}
-
-.description {
-    outline: none;
+.itemDescription {
+    resize: none;
     font-size: 1em;
     padding: 1em;
     grid-area: description;
+}
+
+.itemDescription:disabled{
+    opacity: 100%;
+    color: black;
+}
+
+.itemEditButton {
+    grid-area: edit;
+}
+
+.itemRemoveButton {
+    grid-area: remove;
+}
+
+.itemSaveButton {
+    grid-area: save;
+    display: none;
+}
+
+.itemCancelButton {
+    grid-area: cancel;
+    display: none;
 }
 
 button {
@@ -155,30 +171,6 @@ button {
 button:hover {
     background-color: aliceblue;
 }
-
-textarea{
-    resize: none;
-}
-
-textarea:disabled{
-    opacity: 100%;
-    color: black;
-}
-
-.save{
-    grid-area: save;
-    display: none;
-}
-
-.cancel{
-    grid-area: cancel;
-    display: none;
-}
-
-.hid{
-    display: none;
-}
-
 
 @media screen and (min-width: 1000px) {
     body {
@@ -194,26 +186,30 @@ textarea:disabled{
 }
 
 @media screen and (max-width: 680px) {
-    body{
+    body {
         width: 90%;
         min-width: none;
     }
-    .basic {
+
+    .basicData {
         display: grid;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: 
-        "title title"
-        "status rating";
+        grid-template-areas:
+            "title title"
+            "status rating";
     }
-    .basicInfo{
+
+    .basicInformation {
         width: inherit;
     }
-    .showAdvanced{
+
+    .showDetailedData {
         display: flex;
         flex-direction: column;
     }
-    .editAdvanced{
+
+    .editDetailedData {
         display: flex;
         flex-direction: column;
     }

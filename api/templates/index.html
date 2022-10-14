@@ -13,31 +13,31 @@
     <header class="websiteTitle">
         <h1>Watch list</h1>
         {% if name=="" %}
-        <div class="header">
+        <div class="welcomeText">
             <h2>This is demo version.</h2>
-            <div class="logins">
+            <div class="headerLogins">
                 <a href='login'>Log in</a> or <a href='createAccount'>Create account</a> to get full functionality.
             </div>
         </div>
         {% else %}
-        <div class="header">
+        <div class="welcomeText">
             <h2>Welcome, {{ name }}</h2>
-            <div class="logins">
+            <div class="headerLogins">
                 <a href='logout'>Log out</a>
             </div>
         </div>
         {% endif %}
     </header>
-    <section class="list">
-        <form class="listing" action="/modify" method="post">
-            <button class="add" type="button" onclick=addNew(this)>+</button>
+    <section class="watchList">
+        <form class="watchListItem" action="/modify" method="post">
+            <button class="addNewItem" type="button" onclick=addNew(this)>+</button>
         </form>
-        <form class="listing" action="/modify" method="post" style="display: none;">
-            <div class="basic" onclick=showAdvanced(this)>
-                <input class="hid" name="hid" value="">
-                <input disabled class="basicInfo title" value="" name="title">
-                <select class="basicInfo status" disabled onchange=changeColour(this) style="background-color:green"
-                    name="status">
+        <form class="watchListItem" action="/modify" method="post" style="display: none;">
+            <div class="basicData" onclick=showAdvanced(this)>
+                <input class="hiddenID" name="hid" value="">
+                <input class="basicInformation itemTittle editable" name="title" value="">
+                <select class="basicInformation itemStatus editable" name="status" style="background-color:green"
+                    onchange=changeColour(this)>
                     <option value="watching" selected>watching</option>
                     <option value="paused">paused</option>
                     <option value="waiting">waiting</option>
@@ -45,34 +45,34 @@
                     <option value="finished">finished</option>
                     <option value="dropped">dropped</option>
                 </select>
-                <select class="basicInfo rating" disabled name="rating">
-                    <option value="0" selected></option>
+                <select class="basicInformation itemRating editable" name="rating">
+                    <option value="0" selected>-</option>
                     {% for j in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] %}
                     <option value={{j}}>{{j}}</option>
                     {% endfor %}
                     <select>
             </div>
-            <div class="advanced showAdvanced">
-                <a class="wikiLink adv">wiki</a>
-                <input class="wikiLinkInput adv" name="wikiLink">
-                <a class="trailer adv">trailer</a>
-                <input class="trailerInput adv" name="trailer">
-                <textarea name="description" disabled class="description adv"></textarea>
-                <button type="button" class="edit adv" onclick=toEdit(this)>EDIT</button>
-                <button type="submit" name="act" value="save" class="save adv">SAVE</button>
-                <button type="submit" name="act" value="remove" class="remove adv">REMOVE</button>
-                <button type="button" class="cancel adv" onclick=removeThis(this)>CANCEL</button>
+            <div class="detailedData showDetailedData">
+                <a class="itemWikiLink toHide adv">wiki</a>
+                <input class="itemWikiLinkInput editable toShow adv" name="wikiLink">
+                <a class="itemTrailer toHide adv">trailer</a>
+                <input class="itemTrailerInput editable toShow adv" name="trailer">
+                <textarea class="itemDescription editable adv" name="description"></textarea>
+                <button class="itemEditButton toHide adv" type="button" onclick=toEdit(this)>EDIT</button>
+                <button class="itemSaveButton toShow adv" name="act" value="save" type="submit">SAVE</button>
+                <button class="itemRemoveButton toHide adv" name="act" value="remove" type="submit">REMOVE</button>
+                <button class="itemCancelButton toShow adv" type="button" onclick=removeThis(this)>CANCEL</button>
             </div>
         </form>
         {%for i in data%}
 
-        <form class="listing" action="/modify" method="post">
-            <div class="basic" onclick=showAdvanced(this)>
-                <input class="hid" name="hid" value={{i["_id"]}}>
-                <input disabled class="basicInfo title" value='{{i["title"]}}' name="title">
+        <form class="watchListItem" action="/modify" method="post">
+            <div class="basicData" onclick=showAdvanced(this)>
+                <input class="hiddenID" name="hid" value={{i["_id"]}}>
+                <input class="basicInformation itemTittle editable" name="title" value='{{i["title"]}}' disabled>
                 {% set colours = {"watching": "green;", "waiting": "yellow;", "rewatch": "blue;", "finished": "green;",
                 "dropped": "red;", "paused": "purple;"} %}
-                <select class="basicInfo status" disabled onchange=changeColour(this)
+                <select class="basicInformation itemStatus editable" disabled onchange=changeColour(this)
                     style="background-color:{{colours[i['status']]}}" name="status">
                     <option value="watching" {% if i["status"]=="watching" %} selected {% endif %}>
                         watching</option>
@@ -87,8 +87,8 @@
                     <option value="dropped" {% if i["status"]=="dropped" %} selected {% endif %}>
                         dropped</option>
                 </select>
-                <select class="basicInfo rating" disabled name="rating">
-                    <option value="0"></option>
+                <select class="basicInformation itemRating editable" name="rating" disabled>
+                    <option value="0">-</option>
                     {% for j in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] %}
                     {% if i["rating"] == j %}
                     <option value={{j}} selected>{{j}}</option>
@@ -98,26 +98,27 @@
                     {% endfor %}
                     <select>
             </div>
-            <div class="advanced">
-                <a class="wikiLink adv" target="_blank" {% if i["wiki"] !="" %} href='{{i["wiki"]}}'>
+            <div class="detailedData">
+                <a class="itemWikiLink toHide adv" target="_blank" {% if i["wiki"] !="" %} href='{{i["wiki"]}}'>
                     wiki
                     {% else %}
                     >wiki
                     {% endif %}
                 </a>
-                <input class="wikiLinkInput adv" value='{{i["wiki"]}}' name="wikiLink">
-                <a class="trailer adv" target="_blank" {% if i["trailer"] !="" %} href='{{i["trailer"]}}'>
+                <input class="itemWikiLinkInput editable toShow adv" value='{{i["wiki"]}}' name="wikiLink">
+                <a class="itemTrailer toHide adv" target="_blank" {% if i["trailer"] !="" %} href='{{i["trailer"]}}'>
                     trailer
                     {% else %}
                     >trailer
                     {% endif %}
                 </a>
-                <input class="trailerInput adv" value='{{i["trailer"]}}' name="trailer">
-                <textarea name="description" disabled class="description adv">{{i["description"]}}</textarea>
-                <button type="button" class="edit adv" onclick=toEdit(this)>EDIT</button>
-                <button type="submit" name="act" value="save" class="save adv">SAVE</button>
-                <button type="submit" name="act" value="remove" class="remove adv">REMOVE</button>
-                <button type="button" class="cancel adv" onclick=cancel(this)>CANCEL</button>
+                <input class="itemTrailerInput editable toShow adv" name="trailer" value='{{i["trailer"]}}'>
+                <textarea class="itemDescription editable adv" name="description"
+                    disabled>{{i["description"]}}</textarea>
+                <button class="itemEditButton toHide adv" type="button" onclick=toEdit(this)>EDIT</button>
+                <button class="itemSaveButton toShow adv" name="act" value="save" type="submit">SAVE</button>
+                <button class="itemRemoveButton toHide adv" name="act" value="remove" type="submit">REMOVE</button>
+                <button class="itemCancelButton toShow adv" type="button" onclick=cancel(this)>CANCEL</button>
             </div>
         </form>
         {%endfor%}

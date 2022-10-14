@@ -1,16 +1,16 @@
 function showAdvanced(el) {
-    let adv = el.parentElement.getElementsByClassName("advanced")[0];
-    if(adv==undefined){
-        let adv2 = el.parentElement.getElementsByClassName("editAdvanced")[0];
-        if (adv2!=undefined){
+    let adv = el.parentElement.getElementsByClassName("detailedData")[0];
+    if (adv == undefined) {
+        let adv2 = el.parentElement.getElementsByClassName("editDetailedData")[0];
+        if (adv2 != undefined) {
             return
         }
     }
 
-    if (adv.className == "advanced") {
-        adv.className = 'advanced showAdvanced';
-    }else{
-        adv.className = 'advanced';
+    if (adv.className == "detailedData") {
+        adv.className = "detailedData showDetailedData";
+    } else {
+        adv.className = "detailedData";
     }
 }
 
@@ -28,56 +28,57 @@ function changeColour(el) {
     }
 }
 
-function toEdit(el){
+function toEdit(el) {
     parent = el.parentElement.parentElement;
-    adv = el.parentElement
-    d = parent.getElementsByClassName("basicInfo");
-    for (let i = 0; i<d.length; i++){
-        d[i].removeAttribute("disabled");
+    detailedDataShow = el.parentElement
+    detailedDataShow.setAttribute("class", "editDetailedData")
+    editable = parent.getElementsByClassName("editable");
+    for (let i = 0; i < editable.length; i++) {
+        editable[i].removeAttribute("disabled");
     }
-    adv.setAttribute("class", "editAdvanced")
-    adv.getElementsByClassName("description")[0].removeAttribute("disabled");
-    adv.getElementsByClassName("trailerInput")[0].style.display = "block";
-    adv.getElementsByClassName("wikiLinkInput")[0].style.display = "block";
-    adv.getElementsByClassName("trailer")[0].style.display = "none";
-    adv.getElementsByClassName("wikiLink")[0].style.display = "none";
-    adv.getElementsByClassName("save")[0].style.display = "block";
-    adv.getElementsByClassName("cancel")[0].style.display = "block";
-    adv.getElementsByClassName("edit")[0].style.display = "none";
-    adv.getElementsByClassName("remove")[0].style.display = "none";
+    toHide = parent.getElementsByClassName("toHide");
+    for (let i = 0; i < toHide.length; i++) {
+        toHide[i].style.display = "none";
+    }
+    toShow = parent.getElementsByClassName("toShow");
+    for (let i = 0; i < toShow.length; i++) {
+        toShow[i].style.display = "block";
+    }
 }
 
-function cancel(el){
+function cancel(el) {
     parent = el.parentElement.parentElement;
-    adv = el.parentElement
-    d = parent.getElementsByClassName("basicInfo");
-    for (let i = 0; i<d.length; i++){
-        d[i].setAttribute("disabled", "true");
+    detailedDataShow = el.parentElement
+    detailedDataShow.setAttribute("class", "detailedData showDetailedData")
+    editable = parent.getElementsByClassName("editable");
+    for (let i = 0; i < editable.length; i++) {
+        editable[i].setAttribute("disabled", "true");
     }
-    adv.setAttribute("class", "advanced showAdvanced")
-    adv.getElementsByClassName("description")[0].setAttribute("disabled", "true");
-    adv.getElementsByClassName("trailerInput")[0].style.display = "none";
-    adv.getElementsByClassName("wikiLinkInput")[0].style.display = "none";
-    adv.getElementsByClassName("trailer")[0].style.display = "block";
-    adv.getElementsByClassName("wikiLink")[0].style.display = "block";
-    adv.getElementsByClassName("save")[0].style.display = "none";
-    adv.getElementsByClassName("cancel")[0].style.display = "none";
-    adv.getElementsByClassName("edit")[0].style.display = "block";
-    adv.getElementsByClassName("remove")[0].style.display = "block";
+    toHide = parent.getElementsByClassName("toHide");
+    for (let i = 0; i < toHide.length; i++) {
+        toHide[i].style.display = "block";
+    }
+    toShow = parent.getElementsByClassName("toShow");
+    for (let i = 0; i < toShow.length; i++) {
+        toShow[i].style.display = "none";
+    }
 }
 
-function addNew(el){
-    parent2 = el.parentElement;
-    newElement = parent2.parentElement.getElementsByClassName("listing")[1].cloneNode(true);
+function addNew(el) {
+    parent = el.parentElement;
+    newElement = parent.parentElement.getElementsByClassName("watchListItem")[1]
     newElement.removeAttribute("style");
-    toEdit(newElement.getElementsByClassName("edit")[0]);
-    parent2.parentElement.insertBefore(newElement, parent2.nextSibling);
-    parent2.style.display = 'none';
+    parent.style.display = 'none';
+    toEdit(newElement.getElementsByClassName("itemEditButton")[0]);
 }
 
-function removeThis(el){
-    parent3 = el.parentElement.parentElement.parentElement;
-    parent3.getElementsByClassName("add")[0].parentElement.removeAttribute("style");
-    toRem = parent3.getElementsByClassName("listing")[1];
-    parent3.removeChild(toRem);
+function removeThis(el) {
+    parent = el.parentElement.parentElement.parentElement;
+    parent.getElementsByClassName("addNewItem")[0].parentElement.removeAttribute("style");
+    toRemove = parent.getElementsByClassName("watchListItem")[1];
+    toRemove.style.display = "none";
+    for (let i = 0; i < editable.length; i++) {
+        editable[i].value = "";
+    }
+    editable = toRemove.getElementsByClassName("editable");
 }
