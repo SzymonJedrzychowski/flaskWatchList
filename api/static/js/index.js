@@ -3,7 +3,7 @@ function showAdvanced(el) {
     if (adv == undefined) {
         let adv2 = el.parentElement.getElementsByClassName("editDetailedData")[0];
         if (adv2 != undefined) {
-            return
+            return;
         }
     }
 
@@ -30,8 +30,8 @@ function changeColour(el) {
 
 function toEdit(el) {
     parent = el.parentElement.parentElement;
-    detailedDataShow = el.parentElement
-    detailedDataShow.setAttribute("class", "editDetailedData")
+    detailedDataShow = el.parentElement;
+    detailedDataShow.setAttribute("class", "editDetailedData");
     editable = parent.getElementsByClassName("editable");
     for (let i = 0; i < editable.length; i++) {
         editable[i].removeAttribute("disabled");
@@ -48,8 +48,8 @@ function toEdit(el) {
 
 function cancel(el) {
     parent = el.parentElement.parentElement;
-    detailedDataShow = el.parentElement
-    detailedDataShow.setAttribute("class", "detailedData showDetailedData")
+    detailedDataShow = el.parentElement;
+    detailedDataShow.setAttribute("class", "detailedData showDetailedData");
     editable = parent.getElementsByClassName("editable");
     for (let i = 0; i < editable.length; i++) {
         editable[i].setAttribute("disabled", "true");
@@ -66,7 +66,7 @@ function cancel(el) {
 
 function addNew(el) {
     parent = el.parentElement;
-    newElement = parent.parentElement.getElementsByClassName("watchListItem")[1]
+    newElement = parent.parentElement.getElementsByClassName("watchListItem")[1];
     newElement.removeAttribute("style");
     parent.style.display = 'none';
     toEdit(newElement.getElementsByClassName("itemEditButton")[0]);
@@ -78,7 +78,12 @@ function removeThis(el) {
     toRemove = parent.getElementsByClassName("watchListItem")[1];
     toRemove.style.display = "none";
     for (let i = 0; i < editable.length; i++) {
-        editable[i].value = "";
+        if(editable[i].getAttribute("class") == "basicInformation itemStatus editable"){
+            editable[i].value = "watching";
+            editable[i].style.backgroundColor = "green";
+        }else{
+            editable[i].value = "";
+        }
     }
     editable = toRemove.getElementsByClassName("editable");
 }
