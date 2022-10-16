@@ -11,13 +11,23 @@ app.secret_key = os.environ.get("SECRET_KEY")
 client = pymongo.MongoClient(os.environ.get("DATABASECONN"))
 db = client["myPersonalList"]
 
+global hiddenId
+hiddenId = ""
 
 @app.route("/")
 def index():
+    global hiddenId
+    a = hiddenId
+    hiddenId = ""
     if "name" in session:
-        return render_template("index.html", name=session["name"], data=db["watchList"].find({"account_name": session["name"]}).sort([("status", -1), ("rating", -1)]).collation(Collation(locale='en_US', numericOrdering=True)))
+        data = db["watchList"].find({"account_name": session["name"]}).sort(
+            [("status", -1), ("rating", -1)]).collation(Collation(locale='en_US', numericOrdering=True))
+        return render_template("index.html", name=session["name"], data=data, hiddenId=a)
     else:
-        return render_template("index.html", name="", data=db["watchList"].find({"account_name": "demo"}).sort([("status", -1), ("rating", -1)]).collation(Collation(locale='en_US', numericOrdering=True)))
+        hiddenId = ""
+        data = db["watchList"].find({"account_name": "demo"}).sort(
+            [("status", -1), ("rating", -1)]).collation(Collation(locale='en_US', numericOrdering=True))
+        return render_template("index.html", name="", data=data, hiddenId=a)
 
 
 @app.route("/createAccount", methods=['post', 'get'])
@@ -78,13 +88,18 @@ def login():
 
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
+    global hiddenId
+    hiddenId = ""
     if "name" in session:
         session.pop("name", None)
 
     return redirect("/")
 
+
 @app.route("/modify", methods=["POST", "GET"])
 def modify():
+    global hiddenId
+    hiddenId = ""
     if request.method == "POST":
         action = request.form.get("act")
         hid = request.form.get("hid")
@@ -110,6 +125,7 @@ def modify():
                 }
                 db["watchList"].insert_one(toAdd)
                 return redirect("/")
+            hiddenId = hid
             toMod = {"$set": {
                 "title": request.form.get("title"),
                 "status": request.form.get("status"),

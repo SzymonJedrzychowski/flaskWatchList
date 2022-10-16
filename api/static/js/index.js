@@ -87,3 +87,12 @@ function removeThis(el) {
     }
     editable = toRemove.getElementsByClassName("editable");
 }
+
+function move(hid){
+    if (hid == ""){
+        return;
+    }
+    element = document.querySelectorAll('input[value="'+hid+'"]')[0].parentElement;
+    window.scrollTo(0, element.getBoundingClientRect().top);
+    showAdvanced(element);
+}

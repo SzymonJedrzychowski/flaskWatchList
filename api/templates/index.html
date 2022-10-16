@@ -9,7 +9,7 @@
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </head>
 
-<body>
+<body onload=move('{{hiddenId}}')>
     <header class="websiteTitle">
         <h1>Watch list</h1>
         {% if name=="" %}
