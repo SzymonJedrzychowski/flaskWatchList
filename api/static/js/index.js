@@ -30,6 +30,7 @@ function changeColour(el) {
 
 function toEdit(el) {
     parent = el.parentElement.parentElement;
+    quickSave(parent);
     detailedDataShow = el.parentElement;
     detailedDataShow.setAttribute("class", "editDetailedData");
     editable = parent.getElementsByClassName("editable");
@@ -48,6 +49,7 @@ function toEdit(el) {
 
 function cancel(el) {
     parent = el.parentElement.parentElement;
+    reload(parent);
     detailedDataShow = el.parentElement;
     detailedDataShow.setAttribute("class", "detailedData showDetailedData");
     editable = parent.getElementsByClassName("editable");
@@ -95,4 +97,18 @@ function move(hid){
     element = document.querySelectorAll('input[value="'+hid+'"]')[0].parentElement;
     window.scrollTo(0, element.getBoundingClientRect().top);
     showAdvanced(element);
+}
+
+data = {};
+function quickSave(el){
+    value = el.getElementsByClassName("hiddenID")[0].value;
+    data[value] = el.cloneNode(true);
+    console.log(data);
+}
+
+function reload(el){
+    value = el.getElementsByClassName("hiddenID")[0].value;
+    if(value in data){
+        el.replaceWith(data[value]);
+    }
 }
