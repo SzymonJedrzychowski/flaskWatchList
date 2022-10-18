@@ -42,8 +42,16 @@ def createAccount():
             message = 'Choose a username.'
             return render_template('createAccount.html', message=message)
 
-        if password == "":
-            message = 'Choose a password.'
+        error = False
+        if len(password) < 6 or len(password)>16:
+            error = True
+        elif password.lower() == password:
+            error = True
+        elif len(set([i for i in range(10)]).intersection(set(password))) > 0:
+            error = True
+        
+        if error: 
+            message = 'Choose better password. (min. 6 characters, max. 16 charachters, including uppercase and number.'
             return render_template('createAccount.html', message=message)
 
         if accounts.find_one({"name": username}):
