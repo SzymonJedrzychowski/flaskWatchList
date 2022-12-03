@@ -3,8 +3,10 @@
 The aim of this project is to create tv series watch list in Python Flask (https://flask.palletsprojects.com/en/2.2.x/).
 
 # Usage
-The project can be accessed on website: http://personal-watch-list.vercel.app/
-Demo can be used to show the usage of the website, but no changes can be made to the data.
+Project is no longer hosted, therefore to access the demo, one needs to download the repository and host it.
+Below screenshot shows the design and functionalities of the project.
+![image](https://user-images.githubusercontent.com/47495079/205462829-8dbc492d-8b8c-45ab-a615-764018f7d11a.png)
+
 
 # Vercel
 This project can be easily deployed using https://vercel.com.
