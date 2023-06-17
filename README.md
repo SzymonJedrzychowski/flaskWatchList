@@ -10,6 +10,7 @@ Below screenshot shows the design and functionalities of the project.
 
 # Vercel
 This project can be easily deployed using https://vercel.com.
-2 environmental variables needs to be added:
+
+2 environmental variables need to be added:
 - SECRET_KEY - key for session functionality,
 - DATABASECONN - mongodb connection string.
